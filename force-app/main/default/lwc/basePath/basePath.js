@@ -8,4 +8,14 @@ export default class BasePath extends LightningElement {
         { label: 'Nurturing', value: 'Nurturing', isComplete: false },
         { label: 'Closed', value: 'Closed', isComplete: false },
     ];
+
+    isCoachingExpanded = false;
+
+    get coachingDetailsButtonIcon() {
+        return this.isCoachingExpanded ? 'utility:chevrondown' : 'utility:chevronright';
+    }
+
+    toggleCoachingDetails() {
+        this.isCoachingExpanded = !this.isCoachingExpanded;
+    }
 }
