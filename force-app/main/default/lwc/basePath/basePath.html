@@ -1,13 +1,24 @@
 <template>
     <c-card>
-        <lightning-progress-indicator current-step="Contacted" type="path" variant="base">
-            <template for:each={pathItems} for:item="pathItem">
-                <lightning-progress-step
-                    label={pathItem.label}
-                    value={pathItem.value}
-                    key={pathItem.value}
-                ></lightning-progress-step>
-            </template>
-        </lightning-progress-indicator>
+        <div class="slds-grid slds-gutters_direct-xx-small">
+            <div class="slds-col slds-grow-none">
+                <lightning-button-icon
+                    icon-name="utility:chevronright"
+                    variant="border-filled"
+                    alternative-text="Show Details"
+                ></lightning-button-icon>
+            </div>
+            <div class="slds-col">
+                <lightning-progress-indicator current-step="Contacted" type="path" variant="base">
+                    <template for:each={pathItems} for:item="pathItem">
+                        <lightning-progress-step
+                            label={pathItem.label}
+                            value={pathItem.value}
+                            key={pathItem.value}
+                        ></lightning-progress-step>
+                    </template>
+                </lightning-progress-indicator>
+            </div>
+        </div>
     </c-card>
 </template>
