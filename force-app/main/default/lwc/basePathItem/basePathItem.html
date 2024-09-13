@@ -1,0 +1,15 @@
+<template>
+    <li class={liClasses}>
+        <a aria-selected="true" class="slds-path__link" href="#" role="option" tabindex="0">
+            <span class="slds-path__stage">
+                <lightning-icon
+                    icon-name="utility:check"
+                    size="x-small"
+                    alternative-text="Current Stage:"
+                ></lightning-icon>
+                <span class="slds-assistive-text">Current Stage:</span>
+            </span>
+            <span class="slds-path__title">{pathItem.label}</span>
+        </a>
+    </li>
+</template>
