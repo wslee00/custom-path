@@ -1,39 +1,13 @@
 <template>
     <c-card>
-        <div class="slds-path">
-            <div class="slds-grid slds-path__track">
-                <div class="slds-grid slds-path__scroller-container">
-                    <div class="slds-path__scroller">
-                        <div class="slds-path__scroller_inner">
-                            <ul
-                                class="slds-path__nav"
-                                role="listbox"
-                                aria-orientation="horizontal"
-                                aria-labelledby="slds-path__stage-name"
-                            >
-                                <template for:each={pathItems} for:item="pathItem">
-                                    <c-base-path-item
-                                        key={pathItem.value}
-                                        path-item={pathItem}
-                                    ></c-base-path-item>
-                                </template>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="slds-grid slds-path__action">
-                    <span id="slds-path__stage-name" class="slds-path__stage-name"
-                        >Stage: Unqualified</span
-                    >
-                    <button class="slds-button slds-button_brand slds-path__mark-complete">
-                        <svg class="slds-button__icon slds-button__icon_left" aria-hidden="true">
-                            <use
-                                xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#check"
-                            ></use></svg
-                        >Mark Status as Complete
-                    </button>
-                </div>
-            </div>
-        </div>
+        <lightning-progress-indicator current-step="Contacted" type="path" variant="base">
+            <template for:each={pathItems} for:item="pathItem">
+                <lightning-progress-step
+                    label={pathItem.label}
+                    value={pathItem.value}
+                    key={pathItem.value}
+                ></lightning-progress-step>
+            </template>
+        </lightning-progress-indicator>
     </c-card>
 </template>
