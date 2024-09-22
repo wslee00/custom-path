@@ -2,7 +2,9 @@
     <c-card>
         <c-base-path
             current-step={currentStep}
+            is-coaching-expanded={isCoachingExpanded}
             onstepfocus={handleStepFocus}
+            ontogglecoachingdetails={toggleCoachingDetails}
             path-items={pathItems}
         ></c-base-path>
     </c-card>

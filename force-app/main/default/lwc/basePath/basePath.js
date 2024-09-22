@@ -10,7 +10,7 @@ export default class BasePath extends LightningElement {
         { label: 'Closed', value: 'Closed' },
     ];
 
-    isCoachingExpanded = false;
+    @api isCoachingExpanded = false;
 
     get coachingDetailsButtonIcon() {
         return this.isCoachingExpanded ? 'utility:chevrondown' : 'utility:chevronright';
@@ -22,6 +22,6 @@ export default class BasePath extends LightningElement {
     }
 
     toggleCoachingDetails() {
-        this.isCoachingExpanded = !this.isCoachingExpanded;
+        this.dispatchEvent(new CustomEvent('togglecoachingdetails'));
     }
 }
