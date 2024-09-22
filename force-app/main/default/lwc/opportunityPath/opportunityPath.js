@@ -16,6 +16,13 @@ export default class OpportunityPath extends LightningElement {
     currentStep = 'Prospecting';
     isCoachingExpanded = false;
 
+    get isQualifiedStage() {
+        return this.currentStep === 'Qualified';
+    }
+    get isProspectingStage() {
+        return this.currentStep === 'Prospecting';
+    }
+
     handleStepFocus(event) {
         this.currentStep = this.pathItems[event.detail.index].value;
         this.isCoachingExpanded = true;

@@ -6,6 +6,9 @@
             onstepfocus={handleStepFocus}
             ontogglecoachingdetails={toggleCoachingDetails}
             path-items={pathItems}
-        ></c-base-path>
+        >
+            <div lwc:if={isQualifiedStage}>Here is my qualified stage coaching content</div>
+            <div lwc:elseif={isProspectingStage}>Here is my prospecting stage coaching content</div>
+        </c-base-path>
     </c-card>
 </template>
