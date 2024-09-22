@@ -3,6 +3,7 @@
         <c-base-path
             current-step={currentStep}
             is-coaching-expanded={isCoachingExpanded}
+            lwc:if={isDoneLoading}
             onstepfocus={handleStepFocus}
             ontogglecoachingdetails={toggleCoachingDetails}
             path-items={pathItems}
