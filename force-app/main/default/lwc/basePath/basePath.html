@@ -23,7 +23,9 @@
     </div>
     <div lwc:if={isCoachingExpanded} class="slds-path__content" id="path-coaching-2">
         <div class="slds-path__coach slds-grid">
-            <slot></slot>
+            <div class="slds-col slds-size_1-of-1">
+                <slot></slot>
+            </div>
         </div>
     </div>
 </template>

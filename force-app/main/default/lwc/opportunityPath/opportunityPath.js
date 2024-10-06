@@ -23,32 +23,29 @@ export default class OpportunityPath extends LightningElement {
             this.recordTypeId = data.defaultRecordTypeId;
         }
         if (error) {
-            console.log('error', error);
+            console.error('error', error);
         }
     }
 
     @wire(getPicklistValues, { recordTypeId: '$recordTypeId', fieldApiName: STAGE_NAME_FIELD })
     processGetPicklistValues({ error, data }) {
         if (data) {
-            console.log('processGetPicklistValues', data);
             this.pathItems = data.values.map((picklistVal) => {
                 return { label: picklistVal.label, value: picklistVal.value };
             });
         }
         if (error) {
-            console.log('error', error);
+            console.error('error', error);
         }
     }
 
     @wire(getRecord, { recordId: '$recordId', fields: STAGE_NAME_FIELD })
     processGetRecord({ error, data }) {
-        console.log('processGetRecord', this.recordId, { error, data });
         if (data) {
-            console.log('processGetRecord', data);
             this.currentStep = getFieldValue(data, STAGE_NAME_FIELD);
         }
         if (error) {
-            console.log('processGetRecord error', error);
+            console.error('processGetRecord error', error);
         }
     }
 
@@ -60,7 +57,6 @@ export default class OpportunityPath extends LightningElement {
     }
 
     handleStepFocus(event) {
-        console.log('handleStepFocus', event.detail);
         this.currentStep = this.pathItems[event.detail.index].value;
         this.isCoachingExpanded = true;
     }

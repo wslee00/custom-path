@@ -8,8 +8,12 @@
             ontogglecoachingdetails={toggleCoachingDetails}
             path-items={pathItems}
         >
-            <div lwc:if={isQualifiedStage}>Here is my qualified stage coaching content</div>
-            <div lwc:elseif={isProspectingStage}>Here is my prospecting stage coaching content</div>
+            <div lwc:if={isProspectingStage}>
+                <c-opp-prospecting-stage-input-form
+                    record-id={recordId}
+                ></c-opp-prospecting-stage-input-form>
+            </div>
+            <div lwc:elseif={isQualifiedStage}>Here is my prospecting stage coaching content</div>
         </c-base-path>
     </c-card>
 </template>
