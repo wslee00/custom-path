@@ -11,6 +11,7 @@
             <div lwc:if={isProspectingStage}>
                 <c-opp-prospecting-stage-input-form
                     record-id={recordId}
+                    onrecordupdate={handleRecordUpdate}
                 ></c-opp-prospecting-stage-input-form>
             </div>
             <div lwc:elseif={isQualifiedStage}>Here is my prospecting stage coaching content</div>

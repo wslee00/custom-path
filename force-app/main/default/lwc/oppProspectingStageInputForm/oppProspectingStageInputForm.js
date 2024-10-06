@@ -10,8 +10,12 @@ export default class OppProspectingStageInputForm extends LightningElement {
         console.error('handleError', event.detail);
     }
 
-    handleSubmit() {
+    handleSubmit(event) {
+        event.preventDefault();
+        const fields = event.detail.fields;
+        fields.StageName = 'Prospecting';
         this.isProcessing = true;
+        this.template.querySelector('lightning-record-edit-form').submit(fields);
     }
 
     handleSuccess() {

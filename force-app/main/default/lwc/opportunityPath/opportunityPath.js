@@ -2,6 +2,7 @@ import { LightningElement, api, wire } from 'lwc';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { getFieldValue, getRecord } from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import OPPORTUNITY_OBJECT from '@salesforce/schema/Opportunity';
 import STAGE_NAME_FIELD from '@salesforce/schema/Opportunity.StageName';
 
@@ -54,6 +55,17 @@ export default class OpportunityPath extends LightningElement {
     }
     get isProspectingStage() {
         return this.currentStep === 'Prospecting';
+    }
+
+    handleRecordUpdate() {
+        this.isCoachingExpanded = false;
+        this.dispatchEvent(
+            new ShowToastEvent({
+                message: 'Opportunity has been updated',
+                title: 'Success',
+                variant: 'success',
+            }),
+        );
     }
 
     handleStepFocus(event) {
