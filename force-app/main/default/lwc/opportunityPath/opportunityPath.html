@@ -14,7 +14,12 @@
                     onrecordupdate={handleRecordUpdate}
                 ></c-opp-prospecting-stage-input-form>
             </div>
-            <div lwc:elseif={isQualifiedStage}>Here is my prospecting stage coaching content</div>
+            <div lwc:elseif={isQualifiedStage}>
+                <c-opp-qualified-stage-input-form
+                    record-id={recordId}
+                    onrecordupdate={handleRecordUpdate}
+                ></c-opp-qualified-stage-input-form>
+            </div>
         </c-base-path>
     </c-card>
 </template>

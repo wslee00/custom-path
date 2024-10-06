@@ -1,0 +1,32 @@
+<template>
+    <lightning-record-edit-form
+        record-id={recordId}
+        object-api-name="Opportunity"
+        onsubmit={handleSubmit}
+        onsuccess={handleSuccess}
+        onerror={handleError}
+    >
+        <div class="slds-grid slds-wrap slds-is-relative">
+            <lightning-spinner lwc:if={isProcessing} size="medium"></lightning-spinner>
+
+            <div class="slds-col slds-size_1-of-1">
+                <lightning-messages></lightning-messages>
+            </div>
+
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="Amount"></lightning-input-field>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="CloseDate"></lightning-input-field>
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <lightning-input-field field-name="NextStep"></lightning-input-field>
+            </div>
+        </div>
+        <div class="slds-grid">
+            <div class="slds-col">
+                <lightning-button label="Save" variant="brand" type="submit"></lightning-button>
+            </div>
+        </div>
+    </lightning-record-edit-form>
+</template>
