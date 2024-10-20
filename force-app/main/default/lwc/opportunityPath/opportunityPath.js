@@ -5,10 +5,12 @@ import { getFieldValue, getRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import OPPORTUNITY_OBJECT from '@salesforce/schema/Opportunity';
 import STAGE_NAME_FIELD from '@salesforce/schema/Opportunity.StageName';
+import getClosedOpportunityStages from '@salesforce/apex/OpportunityPathController.getClosedOpportunityStages';
 
 export default class OpportunityPath extends LightningElement {
     @api recordId;
 
+    closedOpportunityStages;
     currentStep = 'Qualification';
     isCoachingExpanded = false;
     pathItems = [];
@@ -22,6 +24,19 @@ export default class OpportunityPath extends LightningElement {
     processGetObjectInfo({ error, data }) {
         if (data) {
             this.recordTypeId = data.defaultRecordTypeId;
+        }
+        if (error) {
+            console.error('error', error);
+        }
+    }
+
+    @wire(getClosedOpportunityStages)
+    processGetClosedOpportunityStages({ error, data }) {
+        if (data) {
+            this.closedOpportunityStages = new Set();
+            data.forEach((closedOpportunityStage) => {
+                this.closedOpportunityStages.add(closedOpportunityStage.ApiName);
+            });
         }
         if (error) {
             console.error('error', error);
