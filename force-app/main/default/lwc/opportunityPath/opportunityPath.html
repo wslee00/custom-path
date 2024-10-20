@@ -20,6 +20,12 @@
                     onrecordupdate={handleRecordUpdate}
                 ></c-opp-qualification-stage-input-form>
             </div>
+            <div lwc:elseif={isClosedStage}>
+                <c-opp-closed-stage-input-form
+                    record-id={recordId}
+                    onrecordupdate={handleRecordUpdate}
+                ></c-opp-closed-stage-input-form>
+            </div>
         </c-base-path>
     </c-card>
 </template>

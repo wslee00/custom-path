@@ -10,16 +10,27 @@ import getClosedOpportunityStages from '@salesforce/apex/OpportunityPathControll
 export default class OpportunityPath extends LightningElement {
     @api recordId;
 
-    closedOpportunityStages;
     currentStep = 'Qualification';
     isCoachingExpanded = false;
     pathItems = [];
     recordTypeId;
 
+    _closedOpportunityStages;
     _oppStages;
+
+    get isClosedStage() {
+        return this.currentStep === 'Closed';
+    }
 
     get isDoneLoading() {
         return this.pathItems.length > 0 && this.currentStep;
+    }
+
+    get isQualifiedStage() {
+        return this.currentStep === 'Qualification';
+    }
+    get isProspectingStage() {
+        return this.currentStep === 'Prospecting';
     }
 
     @wire(getObjectInfo, { objectApiName: OPPORTUNITY_OBJECT })
@@ -35,9 +46,9 @@ export default class OpportunityPath extends LightningElement {
     @wire(getClosedOpportunityStages)
     processGetClosedOpportunityStages({ error, data }) {
         if (data) {
-            this.closedOpportunityStages = new Set();
+            this._closedOpportunityStages = new Set();
             data.forEach((closedOpportunityStage) => {
-                this.closedOpportunityStages.add(closedOpportunityStage.ApiName);
+                this._closedOpportunityStages.add(closedOpportunityStage.ApiName);
             });
             this._postProcessPathItems();
         }
@@ -69,13 +80,6 @@ export default class OpportunityPath extends LightningElement {
         }
     }
 
-    get isQualifiedStage() {
-        return this.currentStep === 'Qualification';
-    }
-    get isProspectingStage() {
-        return this.currentStep === 'Prospecting';
-    }
-
     handleRecordUpdate() {
         this.isCoachingExpanded = false;
         this.dispatchEvent(
@@ -97,12 +101,12 @@ export default class OpportunityPath extends LightningElement {
     }
 
     _postProcessPathItems() {
-        if (!this._oppStages || !this.closedOpportunityStages) {
+        if (!this._oppStages || !this._closedOpportunityStages) {
             return;
         }
         const pathItems = this._oppStages
             .filter((oppStage) => {
-                return !this.closedOpportunityStages.has(oppStage.value);
+                return !this._closedOpportunityStages.has(oppStage.value);
             })
             .map((oppStage) => {
                 return { label: oppStage.label, value: oppStage.value };
