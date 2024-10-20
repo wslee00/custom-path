@@ -1,1 +1,13 @@
-<template> This is the closed stage input form </template>
+<template>
+    <lightning-combobox
+        label="Stage"
+        placeholder="Select a closed stage"
+        options={closedStageOptions}
+        onchange={handleStageChange}
+    ></lightning-combobox>
+
+    <div lwc:if={selectedStage}>
+        <div lwc:if={isClosedWon}>closed won component</div>
+        <div lwc:else>Closed lost component</div>
+    </div>
+</template>
