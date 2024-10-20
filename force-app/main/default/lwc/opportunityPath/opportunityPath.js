@@ -16,6 +16,8 @@ export default class OpportunityPath extends LightningElement {
     pathItems = [];
     recordTypeId;
 
+    _oppStages;
+
     get isDoneLoading() {
         return this.pathItems.length > 0 && this.currentStep;
     }
@@ -37,6 +39,7 @@ export default class OpportunityPath extends LightningElement {
             data.forEach((closedOpportunityStage) => {
                 this.closedOpportunityStages.add(closedOpportunityStage.ApiName);
             });
+            this._postProcessPathItems();
         }
         if (error) {
             console.error('error', error);
@@ -46,9 +49,10 @@ export default class OpportunityPath extends LightningElement {
     @wire(getPicklistValues, { recordTypeId: '$recordTypeId', fieldApiName: STAGE_NAME_FIELD })
     processGetPicklistValues({ error, data }) {
         if (data) {
-            this.pathItems = data.values.map((picklistVal) => {
+            this._oppStages = data.values.map((picklistVal) => {
                 return { label: picklistVal.label, value: picklistVal.value };
             });
+            this._postProcessPathItems();
         }
         if (error) {
             console.error('error', error);
@@ -90,5 +94,21 @@ export default class OpportunityPath extends LightningElement {
 
     toggleCoachingDetails() {
         this.isCoachingExpanded = !this.isCoachingExpanded;
+    }
+
+    _postProcessPathItems() {
+        if (!this._oppStages || !this.closedOpportunityStages) {
+            return;
+        }
+        const pathItems = this._oppStages
+            .filter((oppStage) => {
+                return !this.closedOpportunityStages.has(oppStage.value);
+            })
+            .map((oppStage) => {
+                return { label: oppStage.label, value: oppStage.value };
+            });
+        pathItems.push({ label: 'Closed', value: 'Closed' });
+
+        this.pathItems = pathItems;
     }
 }
