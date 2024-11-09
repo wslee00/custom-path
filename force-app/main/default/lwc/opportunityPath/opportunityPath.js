@@ -16,10 +16,11 @@ export default class OpportunityPath extends LightningElement {
     recordTypeId;
 
     _closedOpportunityStages;
+    _focusedStep;
     _oppStages;
 
     get isClosedStage() {
-        return this.currentStep === 'Closed';
+        return this._focusedStep === 'Closed';
     }
 
     get isDoneLoading() {
@@ -27,10 +28,11 @@ export default class OpportunityPath extends LightningElement {
     }
 
     get isQualifiedStage() {
-        return this.currentStep === 'Qualification';
+        return this._focusedStep === 'Qualification';
     }
+
     get isProspectingStage() {
-        return this.currentStep === 'Prospecting';
+        return this._focusedStep === 'Prospecting';
     }
 
     @wire(getObjectInfo, { objectApiName: OPPORTUNITY_OBJECT })
@@ -74,6 +76,7 @@ export default class OpportunityPath extends LightningElement {
     processGetRecord({ error, data }) {
         if (data) {
             this.currentStep = getFieldValue(data, STAGE_NAME_FIELD);
+            this._focusedStep = this.currentStep;
         }
         if (error) {
             console.error('processGetRecord error', error);
@@ -92,7 +95,7 @@ export default class OpportunityPath extends LightningElement {
     }
 
     handleStepFocus(event) {
-        this.currentStep = this.pathItems[event.detail.index].value;
+        this._focusedStep = this.pathItems[event.detail.index].value;
         this.isCoachingExpanded = true;
     }
 
