@@ -1,7 +1,6 @@
 {
     "orgName": "williamlee company",
     "edition": "Developer",
-    "release": "current",
     "features": ["EnableSetPasswordInApi"],
     "settings": {
         "lightningExperienceSettings": {
