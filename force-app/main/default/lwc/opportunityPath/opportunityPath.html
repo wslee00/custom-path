@@ -8,24 +8,11 @@
             ontogglecoachingdetails={toggleCoachingDetails}
             path-items={pathItems}
         >
-            <div lwc:if={isProspectingStage}>
-                <c-opp-prospecting-stage-input-form
-                    record-id={recordId}
-                    onrecordupdate={handleRecordUpdate}
-                ></c-opp-prospecting-stage-input-form>
-            </div>
-            <div lwc:elseif={isQualifiedStage}>
-                <c-opp-qualification-stage-input-form
-                    record-id={recordId}
-                    onrecordupdate={handleRecordUpdate}
-                ></c-opp-qualification-stage-input-form>
-            </div>
-            <div lwc:elseif={isClosedStage}>
-                <c-opp-closed-stage-input-form
-                    record-id={recordId}
-                    onrecordupdate={handleRecordUpdate}
-                ></c-opp-closed-stage-input-form>
-            </div>
+            <lwc:component
+                lwc:is={stageComponent}
+                record-id={recordId}
+                onrecordupdate={handleRecordUpdate}
+            ></lwc:component>
         </c-base-path>
     </c-card>
 </template>
