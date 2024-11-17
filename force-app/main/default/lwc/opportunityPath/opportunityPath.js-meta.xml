@@ -14,7 +14,4 @@
             </objects>
         </targetConfig>
     </targetConfigs>
-    <capabilities>
-        <capability>lightning__dynamicComponent</capability>
-    </capabilities>
 </LightningComponentBundle>

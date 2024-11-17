@@ -3,7 +3,6 @@ import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 import { getFieldValue, getRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { componentByStage } from './componentByStage';
 import OPPORTUNITY_OBJECT from '@salesforce/schema/Opportunity';
 import STAGE_NAME_FIELD from '@salesforce/schema/Opportunity.StageName';
 import getClosedOpportunityStages from '@salesforce/apex/OpportunityPathController.getClosedOpportunityStages';
@@ -12,13 +11,13 @@ export default class OpportunityPath extends LightningElement {
     @api recordId;
 
     currentStep = 'Qualification';
+    focusedStep;
     isCoachingExpanded = false;
     pathItems = [];
     recordTypeId;
     stageComponent;
 
     _closedOpportunityStages;
-    _focusedStep;
     _oppStages;
 
     get isDoneLoading() {
@@ -67,7 +66,6 @@ export default class OpportunityPath extends LightningElement {
         if (data) {
             this.currentStep = getFieldValue(data, STAGE_NAME_FIELD);
             this._focusedStep = this.currentStep;
-            this._setStageComponent();
         }
         if (error) {
             console.error('processGetRecord error', error);
@@ -85,11 +83,9 @@ export default class OpportunityPath extends LightningElement {
         );
     }
 
-    async handleStepFocus(event) {
-        this._focusedStep = this.pathItems[event.detail.index].value;
+    handleStepFocus(event) {
+        this.focusedStep = this.pathItems[event.detail.index].value;
         this.isCoachingExpanded = true;
-
-        await this._setStageComponent();
     }
 
     toggleCoachingDetails() {
@@ -110,15 +106,5 @@ export default class OpportunityPath extends LightningElement {
         pathItems.push({ label: 'Closed', value: 'Closed' });
 
         this.pathItems = pathItems;
-    }
-
-    async _setStageComponent() {
-        const componentName = componentByStage[this._focusedStep];
-        if (!componentName) {
-            return;
-        }
-
-        const { default: componentImport } = await import(componentName);
-        this.stageComponent = componentImport;
     }
 }

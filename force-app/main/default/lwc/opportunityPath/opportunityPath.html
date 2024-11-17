@@ -8,11 +8,11 @@
             ontogglecoachingdetails={toggleCoachingDetails}
             path-items={pathItems}
         >
-            <lwc:component
-                lwc:is={stageComponent}
+            <c-opp-stage-dynamic-component
+                stage-name={focusedStep}
                 record-id={recordId}
                 onrecordupdate={handleRecordUpdate}
-            ></lwc:component>
+            ></c-opp-stage-dynamic-component>
         </c-base-path>
     </c-card>
 </template>
