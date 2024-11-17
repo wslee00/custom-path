@@ -1,6 +1,6 @@
 <template>
-    <div class="slds-is-relative" lwc:if={isLoading}>
-        <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+    <div class="slds-is-relative spinner-container" lwc:if={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
     </div>
     <div lwc:else>
         <div lwc:if={hasNoDynamicComponent}>No dynamic component found for stage {stageName}</div>
