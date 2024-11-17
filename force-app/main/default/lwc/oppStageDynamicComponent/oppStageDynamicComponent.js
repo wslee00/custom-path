@@ -33,4 +33,8 @@ export default class OppStageDynamicComponent extends LightningElement {
         this.isLoading = false;
         this.stageComponent = componentImport;
     }
+
+    handleRecordUpdate() {
+        this.dispatchEvent(new CustomEvent('recordupdate'));
+    }
 }
