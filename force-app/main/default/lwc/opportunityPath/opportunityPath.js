@@ -21,20 +21,8 @@ export default class OpportunityPath extends LightningElement {
     _focusedStep;
     _oppStages;
 
-    get isClosedStage() {
-        return this._focusedStep === 'Closed';
-    }
-
     get isDoneLoading() {
         return this.pathItems.length > 0 && this.currentStep;
-    }
-
-    get isQualifiedStage() {
-        return this._focusedStep === 'Qualification';
-    }
-
-    get isProspectingStage() {
-        return this._focusedStep === 'Prospecting';
     }
 
     @wire(getObjectInfo, { objectApiName: OPPORTUNITY_OBJECT })
